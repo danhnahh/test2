@@ -1,0 +1,15 @@
+﻿  main.cpp
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(127,27): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(127,27): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(127,36): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(127,36): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(132,41): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(132,41): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(132,50): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(132,50): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(135,27): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(135,27): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(135,36): warning C4838: conversion from 'double' to 'int' requires a narrowing conversion
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(135,36): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(57,8): warning C4101: 'flameTime': unreferenced local variable
+  testcode.vcxproj -> D:\UET\C++\vscode violet\CHECKCODE\testcode\Debug\testcode.exe
