@@ -12,6 +12,9 @@
 #include <string>
 #include <iostream>
 #include <random>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
 
 
 static SDL_Window* g_window = NULL;
@@ -19,17 +22,32 @@ static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
 SDL_Window* gWindow = NULL;
 
-
 SDL_Renderer* gRenderer = NULL;
 
-
+SDL_Texture* Boss = NULL;
 SDL_Texture* gTexture = NULL;
 SDL_Texture* gTexture1 = NULL;
 SDL_Texture* gTexture2 = NULL;
 SDL_Texture* gTexture3 = NULL;
-SDL_Texture* win = NULL;
+SDL_Texture* Win = NULL;
+SDL_Texture* Lose = NULL;
+SDL_Texture* startmenu = NULL;
+SDL_Texture* Pause = NULL;
+SDL_Texture* Bullet1 = NULL;
+SDL_Texture* Type = NULL;
 
+SDL_RendererFlip fliptype = SDL_FLIP_NONE;
 
+SDL_RendererFlip fliptype1;
+
+SDL_RendererFlip fliptypecato;
+
+Mix_Music* music;
+Mix_Music* daddy;
+Mix_Chunk* eatlevel1;
+Mix_Chunk* eatlevel2;
+Mix_Chunk* eatlevel3;
+Mix_Chunk* bang;
 //screen
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
