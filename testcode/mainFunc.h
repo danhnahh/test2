@@ -114,12 +114,16 @@ bool loadMedia()
 	eatlevel2 = Mix_LoadWAV("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/music/eatlevel2.wav");
 	eatlevel3 = Mix_LoadWAV("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/music/eatlevel3.wav");
 	bang = Mix_LoadWAV("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/music/bang.wav");
+
 	gTexture = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/bkf.jpg");
 	gTexture1 = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/mainshark.png");
 	startmenu = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/startmenu.jpg");
 	Pause = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/pause.jpg");
 	Bullet1 = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/bullet1.png");
-	Type = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/choose_type_2.jpg");
+	Type = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/choose_type_oke.jpg");
+	Type1 = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/bkf.jpg");
+	Type2 = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/bg2.jpg");
+	Type3 = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/bgk2.jpg");
 	muoi.resize(20);
 	muoito.resize(10);
 	bigfish.resize(5);

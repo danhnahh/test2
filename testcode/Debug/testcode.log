@@ -2,9 +2,11 @@
 D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\mainFunc.h(18,16): warning C4101: 'Texmuoi': unreferenced local variable
   (compiling source file 'main.cpp')
   
-D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(241,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(242,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(617,38): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(617,67): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(103,8): warning C4101: 'flameTime': unreferenced local variable
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(231,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(232,10): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(595,38): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(595,67): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(1036,38): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(1036,67): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+D:\UET\C++\vscode violet\CHECKCODE\testcode\testcode\main.cpp(105,8): warning C4101: 'flameTime': unreferenced local variable
   testcode.vcxproj -> D:\UET\C++\vscode violet\CHECKCODE\testcode\Debug\testcode.exe

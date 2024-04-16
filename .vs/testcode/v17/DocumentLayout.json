@@ -7,8 +7,16 @@
       "RelativeMoniker": "D:0:0:{E3E35A8E-B5D8-4172-96EF-86E1A07BABA4}|testcode\\testcode.vcxproj|solutionrelative:testcode\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E3E35A8E-B5D8-4172-96EF-86E1A07BABA4}|testcode\\testcode.vcxproj|D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E3E35A8E-B5D8-4172-96EF-86E1A07BABA4}|testcode\\testcode.vcxproj|solutionrelative:testcode\\menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E3E35A8E-B5D8-4172-96EF-86E1A07BABA4}|testcode\\testcode.vcxproj|D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\mainFunc.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{E3E35A8E-B5D8-4172-96EF-86E1A07BABA4}|testcode\\testcode.vcxproj|solutionrelative:testcode\\mainFunc.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E3E35A8E-B5D8-4172-96EF-86E1A07BABA4}|testcode\\testcode.vcxproj|D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E3E35A8E-B5D8-4172-96EF-86E1A07BABA4}|testcode\\testcode.vcxproj|solutionrelative:testcode\\menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E3E35A8E-B5D8-4172-96EF-86E1A07BABA4}|testcode\\testcode.vcxproj|D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\CommonFunc.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -22,33 +30,57 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "menu.h",
+              "DocumentMoniker": "D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\menu.h",
+              "RelativeDocumentMoniker": "testcode\\menu.h",
+              "ToolTip": "D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\menu.h",
+              "RelativeToolTip": "testcode\\menu.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC0AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-14T07:21:19.397Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "menu.cpp",
+              "DocumentMoniker": "D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\menu.cpp",
+              "RelativeDocumentMoniker": "testcode\\menu.cpp",
+              "ToolTip": "D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\menu.cpp",
+              "RelativeToolTip": "testcode\\menu.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-14T07:20:35.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "mainFunc.h",
               "DocumentMoniker": "D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\mainFunc.h",
               "RelativeDocumentMoniker": "testcode\\mainFunc.h",
               "ToolTip": "D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\mainFunc.h",
               "RelativeToolTip": "testcode\\mainFunc.h",
-              "ViewState": "AQIAAF8AAAAAAAAAAAAIwHkAAAAHAAAA",
+              "ViewState": "AQIAAGcAAAAAAAAAAAAAAHQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-03-13T14:28:17.638Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "CommonFunc.h",
               "DocumentMoniker": "D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\CommonFunc.h",
               "RelativeDocumentMoniker": "testcode\\CommonFunc.h",
               "ToolTip": "D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\CommonFunc.h",
               "RelativeToolTip": "testcode\\CommonFunc.h",
-              "ViewState": "AQIAABgAAAAAAAAAAAAIwCQAAAAZAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACcAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-06T03:22:29.629Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-06T03:22:29.629Z"
             },
             {
               "$type": "Document",
@@ -58,7 +90,7 @@
               "RelativeDocumentMoniker": "testcode\\main.cpp",
               "ToolTip": "D:\\UET\\C\u002B\u002B\\vscode violet\\CHECKCODE\\testcode\\testcode\\main.cpp",
               "RelativeToolTip": "testcode\\main.cpp",
-              "ViewState": "AQIAAJ4AAAAAAAAAAAAnwL8AAAAHAAAA",
+              "ViewState": "AQIAAIQEAAAAAAAAAAAYwJ4EAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-03T12:57:00.909Z",
               "EditorCaption": ""
