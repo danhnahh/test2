@@ -66,6 +66,8 @@ int main(int argc, char* args[])
 	int k2 = 0;
 	int dem = 0;
 
+	int size_x = 0;
+	int size_y = 0;
 	bool win = false;
 	int typegame = 0;
 	bool pause = false;
@@ -80,10 +82,15 @@ int main(int argc, char* args[])
 	float angle;
 	bool click = false;
 	bool checktype = false;
+
+	bool check_until = false;
+
+	/*diem_so.SetColor(TextObject::WHITE_TEXT);*/
+	
 	/*float delta_x;
 	float delta_y;
 	float angle;*/
-	//std::srand(std::time(nullptr));
+	/*std::srand(std::time(nullptr));*/
 	if (!init())
 	{
 		printf("Failed to initialize!\n");
@@ -107,6 +114,8 @@ int main(int argc, char* args[])
 			SDL_Event e;
 			bool flipImage = false;
 
+			/*diem_so.SetColor(TextObject::WHITE_TEXT);*/
+
 			while (!quit)
 			{
 				flameStart = SDL_GetTicks();
@@ -122,7 +131,7 @@ int main(int argc, char* args[])
 					
 					SDL_GetMouseState((&x), (&y));
 					//cout << x << " " << y << endl;
-					if (e.type == SDL_MOUSEBUTTONDOWN && x >= 478 && x <= 755 && y >= 275 && y <= 354 && checktype == false)
+					if (e.type == SDL_MOUSEBUTTONDOWN && x >= 478 && x <= 755 && y >= 275 && y <= 354 && checktype == false && start == 0)
 					{
 						cout << "okeokeoke";
 						start = 1;
@@ -155,8 +164,11 @@ int main(int argc, char* args[])
 						int h2 = 0;
 						int k2 = 0;
 						dem = 0;
+						size_x = 0;
+						size_y = 0;
 						checktype = false;
 						alive = true;
+						check_until = false;
 						bullet.rebullet();
 						bullet.x = x2 + 100;
 						bullet.y = y2 + 100;
@@ -195,7 +207,10 @@ int main(int argc, char* args[])
 							x2 = 250;
 							y2 = 250;
 							thu = 0;
+							size_x = 0;
+							size_y = 0;
 							//
+							check_until = false;
 							checktype = false;
 							typegame = 0;
 							h = 0;
@@ -250,7 +265,7 @@ int main(int argc, char* args[])
 					SDL_RenderClear(gRenderer);
 
 					Mix_PlayMusic(music, -1);
-					cout << x <<" " << y << endl;
+					
 					SDL_Rect type = { 0,0,SCREEN_WIDTH,SCREEN_HEIGHT };
 					SDL_RenderClear(gRenderer);
 					SDL_RenderCopy(gRenderer, Type, NULL, &type);
@@ -298,8 +313,10 @@ int main(int argc, char* args[])
 					SDL_RenderPresent(gRenderer);
 				}
 				
+				if (typegame == 1 && e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_RIGHT) { check_until = true; }
+
 				if (start == 2) {
-					if (typegame == 2)
+					if (typegame == 1)
 					{
 						if (pause == false)
 						{
@@ -338,8 +355,37 @@ int main(int argc, char* args[])
 							SDL_RenderClear(gRenderer);
 							SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
 
+							int toado_x = x - size_x/2;
+							int toado_y = y - size_y/2;
 
+							if (check_until == true) {
+								SDL_Rect ULTI;
+								ULTI = {  toado_x,  toado_y , size_x += 4,size_y += 4 };
+								SDL_RenderCopy(gRenderer, ulti, NULL, &ULTI);
+							}
 
+							for (int i = 0; i < (int)muoi.size(); i++) {
+								if (abs(toado_x - muoi[i].xk) <= size_x && abs(toado_y - muoi[i].yk) <= size_y && muoi[i].test_alive == 1) {
+									muoi[i].test_alive = 0;
+									muoi[i].xk = -100;
+									muoi[i].yk = -100;
+								}
+							}
+							for (int i = 0; i < (int)muoito.size(); i++) {
+								if (abs(toado_x - muoito[i].xk) <= size_x && abs(toado_y - muoito[i].yk) <= size_y && muoito[i].test_alive == 1) {
+									muoito[i].test_alive = 0;
+									muoito[i].xk = -100;
+									muoito[i].yk = -100;
+								}
+							}
+							for (int i = 0; i < (int)bigfish.size(); i++) {
+								if (abs(toado_x - bigfish[i].xk) <= size_x && abs(toado_y - bigfish[i].yk) <= size_y && bigfish[i].test_alive == 1) {
+									bigfish[i].test_alive = 0;
+									bigfish[i].xk = -100;
+									bigfish[i].yk = -100;
+								}
+							}
+							
 
 							SDL_Rect rectmuoi[50];
 							int testquaydau[50] = {};
@@ -381,30 +427,30 @@ int main(int argc, char* args[])
 										if (muoi[i].yk >= 700) muoi[i].ykdaptuong = -2;
 										if (muoi[i].yk <= 0) muoi[i].ykdaptuong = 2;
 									}
-									if (abs(muoi[i].yk - y) < 50 && abs(muoi[i].xk - x) < 150)
+									if (abs(muoi[i].yk - y) < 30 && abs(muoi[i].xk - x) < 50)
 									{
 										testquaydau[i] = 1;
 									}
 									if (thu2[i] == 1 && testquaydau[i] == 1)
 									{
-										rectmuoi[i] = { muoi[i].xk -= 2,muoi[i].yk += (rand() % 3) * ((rand() % 2 == 0) ? -1 : 1), 80, 80 };
+										rectmuoi[i] = { muoi[i].xk -= 3,muoi[i].yk += (rand() % 3) * ((rand() % 2 == 0) ? -1 : 1), 80, 80 };
 										SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_NONE);
 
 
 									}
 									else if (thu2[i] == 0 && testquaydau[i] == 1)
 									{
-										rectmuoi[i] = { muoi[i].xk += 2, muoi[i].yk += (rand() % 3) * ((rand() % 2 == 0) ? -1 : 1), 80, 80 };
+										rectmuoi[i] = { muoi[i].xk += 3, muoi[i].yk += (rand() % 3) * ((rand() % 2 == 0) ? -1 : 1), 80, 80 };
 										SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
 
 									}
 									else if (thu2[i] == 0)
 									{
-										rectmuoi[i] = { muoi[i].xk -= (rand() % 3) , muoi[i].yk += canhodichuyen[i].dichuyen, 80, 80 };
+										rectmuoi[i] = { muoi[i].xk -=2* (rand() % 3) , muoi[i].yk += canhodichuyen[i].dichuyen, 80, 80 };
 										SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_NONE);
 										if (muoi[i].trongmanhinh == false)
 										{
-											rectmuoi[i] = { muoi[i].xk -= (rand() % 3) , muoi[i].yk += muoi[i].ykdaptuong, 80, 80 };
+											rectmuoi[i] = { muoi[i].xk -=2* (rand() % 3) , muoi[i].yk += muoi[i].ykdaptuong, 80, 80 };
 											SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_NONE);
 											//muoi[i + 1].trongmanhinh = false;
 										}
@@ -470,26 +516,26 @@ int main(int argc, char* args[])
 									}
 									if (thucato[i] == 1 && ca_to_quay_dau[i] == 1 && dem >= 10)
 									{
-										Rectcato[i] = { muoito[i].xk -= 4, muoito[i].yk += 0, 80, 80 };
+										Rectcato[i] = { muoito[i].xk -= rand() % (3 - 2 + 1) + 2, muoito[i].yk += 0, 80, 80};
 										SDL_RenderCopyEx(gRenderer, muoito[i].Texmuoi, &ca_vua[k], &Rectcato[i], NULL, NULL, SDL_FLIP_NONE);
 
 
 									}
 									else if (thucato[i] == 0 && ca_to_quay_dau[i] == 1 && dem >= 10)
 									{
-										Rectcato[i] = { muoito[i].xk += 4, muoito[i].yk += 0, 80, 80 };
+										Rectcato[i] = { muoito[i].xk += rand() % (3 - 2 + 1) + 2, muoito[i].yk += 0, 80, 80};
 										SDL_RenderCopyEx(gRenderer, muoito[i].Texmuoi, &ca_vua[k], &Rectcato[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
 
 
 									}
 									else if (thucato[i] == 0)
 									{
-										Rectcato[i] = { muoito[i].xk -= 2, muoito[i].yk += 0, 80, 80 };
+										Rectcato[i] = { muoito[i].xk -= rand() % (3 - 2 + 1) + 2, muoito[i].yk += 0, 80, 80};
 										SDL_RenderCopyEx(gRenderer, muoito[i].Texmuoi, &ca_vua[k], &Rectcato[i], NULL, NULL, SDL_FLIP_NONE);
 									}
 									else if (thucato[i] == 1)
 									{
-										Rectcato[i] = { muoito[i].xk += 2,muoito[i].yk += 0, 80, 80 };
+										Rectcato[i] = { muoito[i].xk += rand() % (3 - 2 + 1) + 2,muoito[i].yk += 0, 80, 80};
 										SDL_RenderCopyEx(gRenderer, muoito[i].Texmuoi, &ca_vua[k], &Rectcato[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
 
 									}
@@ -534,30 +580,31 @@ int main(int argc, char* args[])
 									}
 									if (thubigfish[i] == 1 && bigfish_quay_dau[i] == 1 && dem >= 20)
 									{
-										Rectbigfish[i] = { bigfish[i].xk -= 4, bigfish[i].yk += 0, 150, 150 };
+										Rectbigfish[i] = { bigfish[i].xk -= (2 - 1 + 1) + 1, bigfish[i].yk += 0, 150, 150 };
 										SDL_RenderCopyEx(gRenderer, bigfish[i].Texmuoi, &ca_to[k2], &Rectbigfish[i], NULL, NULL, SDL_FLIP_NONE);
 
 									}
 									else if (thubigfish[i] == 0 && bigfish_quay_dau[i] == 1 && dem >= 20)
 									{
-										Rectbigfish[i] = { bigfish[i].xk += 4, bigfish[i].yk += 0, 150, 150 };
+										Rectbigfish[i] = { bigfish[i].xk += (2 - 1 + 1) + 1, bigfish[i].yk += 0, 150, 150 };
 										SDL_RenderCopyEx(gRenderer, bigfish[i].Texmuoi, &ca_to[k2], &Rectbigfish[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
 
 									}
 									else if (thubigfish[i] == 0)
 									{
-										Rectbigfish[i] = { bigfish[i].xk -= 2, bigfish[i].yk += 0, 150, 150 };
+										Rectbigfish[i] = { bigfish[i].xk -= (2 - 1 + 1) + 1, bigfish[i].yk += 0, 150, 150 };
 										SDL_RenderCopyEx(gRenderer, bigfish[i].Texmuoi, &ca_to[k2], &Rectbigfish[i], NULL, NULL, SDL_FLIP_NONE);
 
 									}
 									else if (thubigfish[i] == 1)
 									{
-										Rectbigfish[i] = { bigfish[i].xk += 2,bigfish[i].yk += 0, 150, 150 };
+										Rectbigfish[i] = { bigfish[i].xk += (2 - 1 + 1) + 1,bigfish[i].yk += 0, 150, 150 };
 										SDL_RenderCopyEx(gRenderer, bigfish[i].Texmuoi, &ca_to[k2], &Rectbigfish[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
 									}
 								}
 
 							}
+							
 							float delta_x;
 							float delta_y;
 							/*float angle;*/
@@ -601,10 +648,70 @@ int main(int argc, char* args[])
 									bullet.y = y2 + 100;
 									daban = false;
 								}
+								if(win == false)
+								if (abs(bullet.x - x) <= 30 && abs(bullet.y - y) <= 30 && alive == true) {
+									alive = false;
+									lose = false;
+									daban = true;
+									cout << "biban" << endl;
+								}
+								for (int i = 0; i < (int)muoi.size(); i++) {
+									if ((int)abs(bullet.x - muoi[i].xk) <= 20 && (int)abs(bullet.y - muoi[i].yk) <= 20 && muoi[i].test_alive == 1 && alive == true)
+									{
 
+										/*SDL_DestroyTexture(muoi[i].Texmuoi);
+										muoi[i].xk = -100;
+										muoi[i].yk = -100;*/
+										muoi[i].test_alive = 0;
+										if (win == false || lose == true) Mix_PlayChannel(-1, bang, 1);
+										muoi[i].free();
+										bullet.rebullet();
+										bullet.x = x2 + 100;
+										bullet.y = y2 + 100;
+										daban = false;
 
+									}
+								}
+								for (int i = 0; i < 10; i++) {
+									if ((int)abs(bullet.x - muoito[i].xk) <= 50 && (int)abs(bullet.y - muoito[i].yk) <= 50 && muoito[i].test_alive == 1 && alive == true)
+									{
+										/*SDL_DestroyTexture(muoito[i].Texmuoi);
+										muoito[i].xk = -100;
+										muoito[i].yk = -100;*/
+										muoito[i].test_alive = 0;
+										if (win == false || lose == true) Mix_PlayChannel(-1, bang, 1);
+										muoito[i].free();
+										bullet.rebullet();
+										bullet.x = x2 + 100;
+										bullet.y = y2 + 100;
+										daban = false;
+									}
+								}
+								for (int i = 0; i < (int)bigfish.size(); i++) {
+									if ((int)abs(bullet.x - bigfish[i].xk) <= 50 && (int)abs(bullet.y - bigfish[i].yk) <= 50 && bigfish[i].test_alive == 1 && alive == true)
+									{
+										/*SDL_DestroyTexture(bigfish[i].Texmuoi);
+										bigfish[i].xk = -100;
+										bigfish[i].yk = -100;*/
+										bigfish[i].test_alive = 0;
+										if (win == false || lose == true) Mix_PlayChannel(-1, bang, 1);
+										bigfish[i].free();
+										bullet.rebullet();
+										bullet.x = x2 + 100;
+										bullet.y = y2 + 100;
+										daban = false;
+
+									}
+								}
+								if (abs(toado_x - bullet.x) <= size_x - 20 && abs(toado_y - bullet.y) <= size_y - 20) { 
+									bullet.rebullet();
+									bullet.x = x2 + 100;
+									bullet.y = y2 + 100;
+									daban = false;
+								}
+								if (abs(toado_x - x2) <= size_x - 20 && abs(toado_y - y2) <= size_y - 20) { win = true; daban = true; }
 							}
-
+							
 							if (alive == true)
 							{
 
@@ -649,23 +756,7 @@ int main(int argc, char* args[])
 									dem += 1;
 								}
 							}
-							for (int i = 0; i < (int)muoi.size(); i++) {
-								if ((int)abs(bullet.x - muoi[i].xk) <= 20 && (int)abs(bullet.y - muoi[i].yk) <= 20 && muoi[i].test_alive == 1 && alive == true)
-								{
-
-									/*SDL_DestroyTexture(muoi[i].Texmuoi);
-									muoi[i].xk = -100;
-									muoi[i].yk = -100;*/
-									muoi[i].test_alive = 0;
-									if (win == false || lose == true) Mix_PlayChannel(-1, bang, 1);
-									muoi[i].free();
-									bullet.rebullet();
-									bullet.x = x2 + 100;
-									bullet.y = y2 + 100;
-									daban = false;
-
-								}
-							}
+							
 							for (int i = 0; i < 10; i++) {
 								if ((int)abs(x - muoito[i].xk) <= 50 && (int)abs(y - muoito[i].yk) <= 50 && dem >= 10 && muoito[i].test_alive == 1 && alive == true)
 								{
@@ -679,24 +770,10 @@ int main(int argc, char* args[])
 									dem += 1;
 								}
 							}
-							for (int i = 0; i < 10; i++) {
-								if ((int)abs(bullet.x - muoito[i].xk) <= 50 && (int)abs(bullet.y - muoito[i].yk) <= 50 && muoito[i].test_alive == 1 && alive == true)
-								{
-									/*SDL_DestroyTexture(muoito[i].Texmuoi);
-									muoito[i].xk = -100;
-									muoito[i].yk = -100;*/
-									muoito[i].test_alive = 0;
-									if (win == false || lose == true) Mix_PlayChannel(-1, bang, 1);
-									muoito[i].free();
-									bullet.rebullet();
-									bullet.x = x2 + 100;
-									bullet.y = y2 + 100;
-									daban = false;
-								}
-							}
+							
 							for (int i = 0; i < (int)muoito.size(); i++)
 							{
-								if (abs(x - muoito[i].xk) <= 30 && abs(y - muoito[i].yk) <= 30 && dem < 10)
+								if (abs(x - muoito[i].xk) <= 20 && abs(y - muoito[i].yk) <= 20 && dem < 10)
 								{
 									alive = false;
 									lose = false;
@@ -712,25 +789,10 @@ int main(int argc, char* args[])
 									bigfish[i].free();
 								}
 							}
-							for (int i = 0; i < (int)bigfish.size(); i++) {
-								if ((int)abs(bullet.x - bigfish[i].xk) <= 50 && (int)abs(bullet.y - bigfish[i].yk) <= 50 && bigfish[i].test_alive == 1 && alive == true)
-								{
-									/*SDL_DestroyTexture(bigfish[i].Texmuoi);
-									bigfish[i].xk = -100;
-									bigfish[i].yk = -100;*/
-									bigfish[i].test_alive = 0;
-									if (win == false || lose == true) Mix_PlayChannel(-1, bang, 1);
-									bigfish[i].free();
-									bullet.rebullet();
-									bullet.x = x2 + 100;
-									bullet.y = y2 + 100;
-									daban = false;
-
-								}
-							}
+							
 							for (int i = 0; i < 5; i++)
 							{
-								if (abs(x - bigfish[i].xk) <= 30 && abs(y - bigfish[i].yk) <= 30 && dem < 20) {
+								if (abs(x - bigfish[i].xk) <= 20 && abs(y - bigfish[i].yk) <= 20 && dem < 20) {
 									alive = false;
 									lose = false;
 								}
@@ -789,6 +851,7 @@ int main(int argc, char* args[])
 							{
 								win = true;
 								alive = false;
+								
 
 							}
 							if (win == true) {
@@ -806,10 +869,25 @@ int main(int argc, char* args[])
 							SDL_RenderPresent(gRenderer);
 						}
 					}
-					if (typegame == 1)
+					if (typegame == 2)
 					{
 						if (pause == false)
-						{
+						{	
+							diem_so.Free();
+							diem_so.SetColor(TextObject::RED_TEXT);
+							std::string val_str_mark = std::to_string(dem);
+							string strMark("Diem: ");
+							strMark += val_str_mark;
+							
+							
+
+							diem_so.SetText(strMark);
+							diem_so.LoadFromRenderText(font_tong,gRenderer);
+							
+							
+
+
+
 
 							SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 							SDL_RenderClear(gRenderer);
@@ -826,10 +904,10 @@ int main(int argc, char* args[])
 
 
 							SDL_RenderClear(gRenderer);
-							SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);
+							SDL_RenderCopy(gRenderer, gTexture2, NULL, NULL);
+							diem_so.RenderText(gRenderer,50, 50);
 
-
-
+							
 
 							SDL_Rect rectmuoi[50];
 							int testquaydau[50] = {};
@@ -880,7 +958,7 @@ int main(int argc, char* args[])
 										{
 											rectmuoi[i] = { muoi[i].xk -= (rand() % 3) , muoi[i].yk += muoi[i].ykdaptuong, 80, 80 };
 											SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_NONE);
-											//muoi[i + 1].trongmanhinh = false;
+											
 										}
 
 
@@ -893,7 +971,7 @@ int main(int argc, char* args[])
 										{
 											rectmuoi[i] = { muoi[i].xk += (rand() % 3) , muoi[i].yk += muoi[i].ykdaptuong, 80, 80 };
 											SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
-											//muoi[i + 1].trongmanhinh = false;
+											
 										}
 
 									}
@@ -1163,6 +1241,422 @@ int main(int argc, char* args[])
 							if (win == true) {
 								SDL_Rect inwin = { 0,00,SCREEN_WIDTH ,SCREEN_HEIGHT };
 								SDL_RenderCopy(gRenderer, Win, NULL, &inwin);
+							}
+							if (lose == false)
+							{
+								SDL_Rect inlose = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+								SDL_RenderCopy(gRenderer, Lose, NULL, &inlose);
+								alive = false;
+							}
+
+
+							SDL_RenderPresent(gRenderer);
+						}
+
+					}
+					if (typegame == 3) {
+						if (pause == false)
+						{
+
+							if (e.motion.xrel > 0) {
+								fliptype = SDL_FLIP_NONE;
+							}
+							if (e.motion.xrel < 0) {
+								fliptype = SDL_FLIP_HORIZONTAL;
+							}
+							/*std::cout << dem;*/
+
+
+
+
+
+
+
+
+
+
+							SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+							SDL_RenderClear(gRenderer);
+
+
+							SDL_Rect topLeftViewport;
+							topLeftViewport.x = 0;
+							topLeftViewport.y = 0;
+							topLeftViewport.w = SCREEN_WIDTH;
+							topLeftViewport.h = SCREEN_HEIGHT;
+							SDL_RenderSetViewport(gRenderer, &topLeftViewport);
+
+
+
+
+							SDL_RenderClear(gRenderer);
+							SDL_RenderCopy(gRenderer, gTexture3, NULL, NULL);
+
+
+
+
+							SDL_Rect rectmuoi[50];
+							int testquaydau[50] = {};
+							h1 = (h1 + 1) % 4;
+							k1 = (k1 + h1 / 3) % 14;
+							for (int i = 0; i < (int)muoi.size(); i++)
+							{
+
+								SDL_Rect ca_nho[13];
+								for (int k = 0; k < 13; k++)
+								{
+									ca_nho[k] = { k * 480,0,480,270 };
+								}
+								if (muoi[i].test_alive == 1 && alive == true)
+								{
+									if (muoi[i].xk == 1280)
+									{
+										thu2[i] = 0;
+									}
+									else if (muoi[i].xk <= 0)
+									{
+										thu2[i] = 1;
+									}
+									if (k1 >= 13)
+									{
+										k1 = 0;
+									}
+									if (muoi[i].yk >= 700)
+									{
+										muoi[i].trongmanhinh = false;
+									}
+									if (muoi[i].yk <= 0)
+									{
+										muoi[i].trongmanhinh = false;
+									}
+									if (muoi[i].trongmanhinh == false)
+									{
+
+										if (muoi[i].yk >= 700) muoi[i].ykdaptuong = -2;
+										if (muoi[i].yk <= 0) muoi[i].ykdaptuong = 2;
+									}
+									if (abs(muoi[i].yk - y) < 50 && abs(muoi[i].xk - x) < 150)
+									{
+										testquaydau[i] = 1;
+									}
+									if (thu2[i] == 1 && testquaydau[i] == 1)
+									{
+										rectmuoi[i] = { muoi[i].xk -= 2,muoi[i].yk += (rand() % 3) * ((rand() % 2 == 0) ? -1 : 1), 80, 80 };
+										SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_NONE);
+
+
+									}
+									else if (thu2[i] == 0 && testquaydau[i] == 1)
+									{
+										rectmuoi[i] = { muoi[i].xk += 2, muoi[i].yk += (rand() % 3) * ((rand() % 2 == 0) ? -1 : 1), 80, 80 };
+										SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
+
+									}
+									else if (thu2[i] == 0)
+									{
+										rectmuoi[i] = { muoi[i].xk -= (rand() % 3) , muoi[i].yk += canhodichuyen[i].dichuyen, 80, 80 };
+										SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_NONE);
+										if (muoi[i].trongmanhinh == false)
+										{
+											rectmuoi[i] = { muoi[i].xk -= (rand() % 3) , muoi[i].yk += muoi[i].ykdaptuong, 80, 80 };
+											SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_NONE);
+											//muoi[i + 1].trongmanhinh = false;
+										}
+
+
+									}
+									else if (thu2[i] == 1)
+									{
+										rectmuoi[i] = { muoi[i].xk += (rand() % 3) ,muoi[i].yk += canhodichuyen[i].dichuyen, 80, 80 };
+										SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
+										if (muoi[i].trongmanhinh == false)
+										{
+											rectmuoi[i] = { muoi[i].xk += (rand() % 3) , muoi[i].yk += muoi[i].ykdaptuong, 80, 80 };
+											SDL_RenderCopyEx(gRenderer, muoi[i].Texmuoi, &ca_nho[k1], &rectmuoi[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
+											//muoi[i + 1].trongmanhinh = false;
+										}
+
+									}
+								}
+							}
+
+
+
+
+
+
+							SDL_Rect Rectcato[10];
+
+							int ca_to_quay_dau[10] = {};
+
+							h = (h + 1) % 4;
+							k = (k + h / 3) % 26;
+							for (int i = 0; i < 10; i++)
+							{
+
+								SDL_Rect ca_vua[29];
+								for (int k = 0; k < 29; k++)
+								{
+									ca_vua[k] = { k * 480,0,480,480 };
+								}
+
+								if (muoito[i].test_alive == 1 && alive == true)
+								{
+									if (muoito[i].xk == 1280)
+									{
+
+										thucato[i] = 0;
+
+									}
+									else if (muoito[i].xk <= 0)
+									{
+
+										thucato[i] = 1;
+
+									}
+									if (k >= 29)
+									{
+										k = 0;
+									}
+									if (abs(muoito[i].yk - y) < 50 && abs(muoito[i].xk - x) < 150)
+									{
+										ca_to_quay_dau[i] = 1;
+									}
+									if (thucato[i] == 1 && ca_to_quay_dau[i] == 1 && dem >= 10)
+									{
+										Rectcato[i] = { muoito[i].xk -= 4, muoito[i].yk += 0, 80, 80 };
+										SDL_RenderCopyEx(gRenderer, muoito[i].Texmuoi, &ca_vua[k], &Rectcato[i], NULL, NULL, SDL_FLIP_NONE);
+
+
+									}
+									else if (thucato[i] == 0 && ca_to_quay_dau[i] == 1 && dem >= 10)
+									{
+										Rectcato[i] = { muoito[i].xk += 4, muoito[i].yk += 0, 80, 80 };
+										SDL_RenderCopyEx(gRenderer, muoito[i].Texmuoi, &ca_vua[k], &Rectcato[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
+
+
+									}
+									else if (thucato[i] == 0)
+									{
+										Rectcato[i] = { muoito[i].xk -= 2, muoito[i].yk += 0, 80, 80 };
+										SDL_RenderCopyEx(gRenderer, muoito[i].Texmuoi, &ca_vua[k], &Rectcato[i], NULL, NULL, SDL_FLIP_NONE);
+									}
+									else if (thucato[i] == 1)
+									{
+										Rectcato[i] = { muoito[i].xk += 2,muoito[i].yk += 0, 80, 80 };
+										SDL_RenderCopyEx(gRenderer, muoito[i].Texmuoi, &ca_vua[k], &Rectcato[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
+
+									}
+								}
+
+
+							}
+
+							SDL_Rect Rectbigfish[5];
+
+							int bigfish_quay_dau[5] = {};
+							h2 = (h2 + 1) % 4;
+							k2 = (k2 + h2 / 3) % 25;
+
+							for (int i = 0; i < 5; i++)
+							{
+								SDL_Rect ca_to[29];
+								for (int k = 0; k < 29; k++)
+								{
+									ca_to[k] = { k * 480,0,480,345 };
+								}
+
+								if (bigfish[i].test_alive == 1 && alive == true)
+								{
+
+									if (bigfish[i].xk == 1280)
+									{
+
+										thubigfish[i] = 0;
+
+									}
+									else if (bigfish[i].xk <= 0)
+									{
+
+										thubigfish[i] = 1;
+
+									}
+
+									if (abs(bigfish[i].yk - y) < 100 && abs(bigfish[i].xk - x) < 350)
+									{
+										bigfish_quay_dau[i] = 1;
+									}
+									if (thubigfish[i] == 1 && bigfish_quay_dau[i] == 1 && dem >= 20)
+									{
+										Rectbigfish[i] = { bigfish[i].xk -= 4, bigfish[i].yk += 0, 150, 150 };
+										SDL_RenderCopyEx(gRenderer, bigfish[i].Texmuoi, &ca_to[k2], &Rectbigfish[i], NULL, NULL, SDL_FLIP_NONE);
+
+									}
+									else if (thubigfish[i] == 0 && bigfish_quay_dau[i] == 1 && dem >= 20)
+									{
+										Rectbigfish[i] = { bigfish[i].xk += 4, bigfish[i].yk += 0, 150, 150 };
+										SDL_RenderCopyEx(gRenderer, bigfish[i].Texmuoi, &ca_to[k2], &Rectbigfish[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
+
+									}
+									else if (thubigfish[i] == 0)
+									{
+										Rectbigfish[i] = { bigfish[i].xk -= 2, bigfish[i].yk += 0, 150, 150 };
+										SDL_RenderCopyEx(gRenderer, bigfish[i].Texmuoi, &ca_to[k2], &Rectbigfish[i], NULL, NULL, SDL_FLIP_NONE);
+
+									}
+									else if (thubigfish[i] == 1)
+									{
+										Rectbigfish[i] = { bigfish[i].xk += 2,bigfish[i].yk += 0, 150, 150 };
+										SDL_RenderCopyEx(gRenderer, bigfish[i].Texmuoi, &ca_to[k2], &Rectbigfish[i], NULL, NULL, SDL_FLIP_HORIZONTAL);
+									}
+								}
+
+							}
+
+
+
+							if (alive == true)
+							{
+
+								SDL_Rect rect[19];
+
+								for (int i = 0; i < 19; i++) {
+									rect[i] = { i * 115  ,0  ,114,114 };
+
+								}
+								SDL_GetMouseState((&x), (&y));
+
+								SDL_Rect rect4;
+								if (dem < 10)
+								{
+									rect4 = { x - 50,y - 50,100,100 };
+								}
+								if (dem >= 10) rect4 = { x - 100,y - 100,200,200 };
+								if (dem >= 20) rect4 = { x - 150,y - 150,300,300 };
+
+								SDL_RenderCopyEx(gRenderer, gTexture1, &rect[i], &rect4, 0, NULL, fliptype);
+								j = (j + 1) % 11;
+								i = (i + j / 10) % 20;
+								if (i >= 19)
+								{
+									i = 0;
+								}
+
+							}
+							for (int i = 0; i < (int)muoi.size(); i++) {
+								if ((int)abs(x - muoi[i].xk) <= 20 && (int)abs(y - muoi[i].yk) <= 20 && muoi[i].test_alive == 1 && alive == true)
+								{
+
+									/*SDL_DestroyTexture(muoi[i].Texmuoi);
+									muoi[i].xk = -100;
+									muoi[i].yk = -100;*/
+									muoi[i].test_alive = 0;
+									muoi[i].free();
+									if (dem <= 40)
+										Mix_PlayChannel(-1, eatlevel1, 1);
+
+									dem += 1;
+								}
+							}
+							for (int i = 0; i < 10; i++) {
+								if ((int)abs(x - muoito[i].xk) <= 50 && (int)abs(y - muoito[i].yk) <= 50 && dem >= 10 && muoito[i].test_alive == 1 && alive == true)
+								{
+									/*SDL_DestroyTexture(muoito[i].Texmuoi);
+									muoito[i].xk = -100;
+									muoito[i].yk = -100;*/
+									muoito[i].test_alive = 0;
+									muoito[i].free();
+									if (dem <= 40)
+										Mix_PlayChannel(-1, eatlevel2, 1);
+									dem += 1;
+								}
+							}
+							for (int i = 0; i < (int)muoito.size(); i++)
+							{
+								if (abs(x - muoito[i].xk) <= 30 && abs(y - muoito[i].yk) <= 30 && dem < 10)
+								{
+									alive = false;
+									lose = false;
+								}
+							}
+							for (int i = 0; i < (int)bigfish.size(); i++) {
+								if ((int)abs(x - bigfish[i].xk) <= 50 && (int)abs(y - bigfish[i].yk) <= 50 && dem >= 20 && bigfish[i].test_alive == 1 && alive == true)
+								{
+									/*SDL_DestroyTexture(bigfish[i].Texmuoi);
+									bigfish[i].xk = -100;
+									bigfish[i].yk = -100;*/
+									bigfish[i].test_alive = 0;
+									bigfish[i].free();
+									Mix_PlayChannel(-1, eatlevel3, 1);
+									dem += 1;
+								}
+							}
+							for (int i = 0; i < 5; i++)
+							{
+								if (abs(x - bigfish[i].xk) <= 30 && abs(y - bigfish[i].yk) <= 30 && dem < 20) {
+									alive = false;
+									lose = false;
+								}
+							}
+
+							for (int i = 0; i < (int)bigfish.size(); i++)
+							{
+								for (int j = 0; j < (int)muoito.size(); j++)
+								{
+									//if (abs(bigfish[i].xk - muoito[j].xk) <= 65 && abs(bigfish[i].yk - muoito[j].yk) <= 65) bigfish_gap_midfish = true;
+									if (abs(bigfish[i].xk - muoito[j].xk) <= 50 && abs(bigfish[i].yk - muoito[j].yk) <= 50 && muoito[j].test_alive == 1)
+									{
+										/*SDL_DestroyTexture(muoito[j].Texmuoi);
+										muoito[j].xk = -100;
+										muoito[j].yk = -100;*/
+										muoito[j].test_alive = 0;
+										muoito[j].free();
+									}
+								}
+							}
+							for (int i = 0; i < (int)bigfish.size(); i++)
+							{
+								for (int j = 0; j < (int)muoi.size(); j++)
+								{
+									//if (abs(bigfish[i].xk - muoito[j].xk) <= 65 && abs(bigfish[i].yk - muoito[j].yk) <= 65) bigfish_gap_midfish = true;
+									if (abs(bigfish[i].xk - muoi[j].xk) <= 20 && abs(bigfish[i].yk - muoi[j].yk) <= 20 && muoi[j].test_alive == 1)
+									{
+										/*SDL_DestroyTexture(muoi[j].Texmuoi);
+										muoi[j].xk = -100;
+										muoi[j].yk = -100;*/
+										muoi[j].test_alive = 0;
+										muoi[j].free();
+									}
+								}
+							}
+							for (int i = 0; i < (int)muoito.size(); i++)
+							{
+								for (int j = 0; j < (int)muoi.size(); j++)
+								{
+									//if (abs(bigfish[i].xk - muoito[j].xk) <= 65 && abs(bigfish[i].yk - muoito[j].yk) <= 65) bigfish_gap_midfish = true;
+									if (abs(muoito[i].xk - muoi[j].xk) <= 20 && abs(muoito[i].yk - muoi[j].yk) <= 20 && muoi[j].test_alive == 1)
+									{
+										/*SDL_DestroyTexture(muoi[j].Texmuoi);
+										muoi[j].xk = -100;
+										muoi[j].yk = -100;*/
+										muoi[j].test_alive = 0;
+										muoi[j].free();
+									}
+								}
+							}
+
+							/*std::cout << dem <<" ";*/
+							/*cout << dem << " ";*/
+							SDL_Delay(20);
+							if (dem >= 25)
+							{
+								win = true;
+
+							}
+							if (win == true) {
+								SDL_Rect inwin = { 0,00,SCREEN_WIDTH ,SCREEN_HEIGHT };
+								SDL_RenderCopy(gRenderer, Win, NULL, &inwin);
+
 							}
 							if (lose == false)
 							{

@@ -3,6 +3,8 @@
 #define MAIN_FUNCTIONS_H
 
 #include "CommonFunc.h"
+#include "Text.h"
+
 using namespace std;
 
 class object {
@@ -44,6 +46,11 @@ class Boss_Bullet {
 			x = 250; y = 250;
 	}
 };
+
+TTF_Font* font_tong;
+
+TextObject diem_so;
+
 
 
 
@@ -98,25 +105,61 @@ bool init()
 		printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 		return 0;
 	}
-
+	if (TTF_Init() == -1)
+	{
+		success = false;
+	}
+	/*font_tong = TTF_OpenFont("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/font/font_tong.ttf", 15);*/
+	/*if (font_tong == NULL) {
+		success = false;
+	}*/
 
 	return success;
 }
+
+//SDL_Texture* loadText(SDL_Renderer* renderer, TTF_Font* font, const std::string& text, const SDL_Color& color) {
+//	// T?o surface t? v?n b?n
+//	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color);
+//	if (textSurface == NULL) {
+//		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+//		return NULL;
+//	}
+//
+//	// T?o texture t? surface
+//	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+//	if (textTexture == NULL) {
+//		printf("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
+//		return NULL;
+//	}
+//
+//	// Xoá surface không c?n thi?t
+//	SDL_FreeSurface(textSurface);
+//
+//	return textTexture;
+//}
 
 bool loadMedia()
 {
 
 	bool success = true;
+	font_tong = TTF_OpenFont("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/font/font_tong.ttf", 50);
+	
+
 	Boss = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/taungamoke.png");
 	music = Mix_LoadMUS("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/music/ingame.mp3");
 	daddy = Mix_LoadMUS("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/music/menu.mp3");
 	eatlevel1 = Mix_LoadWAV("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/music/eatlevel1.wav");
 	eatlevel2 = Mix_LoadWAV("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/music/eatlevel2.wav");
 	eatlevel3 = Mix_LoadWAV("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/music/eatlevel3.wav");
-	bang = Mix_LoadWAV("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/music/bang.wav");
+	//bang = Mix_LoadWAV("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/music/bang.wav");
 
 	gTexture = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/bkf.jpg");
 	gTexture1 = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/mainshark.png");
+	gTexture2 = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/bg2.jpg");
+	gTexture3 = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/bgk2.jpg");
+
+	ulti = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/ultimate.png");
+
 	startmenu = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/startmenu.jpg");
 	Pause = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/pause.jpg");
 	Bullet1 = loadTexture("D:/UET/C++/vscode violet/CHECKCODE/testcode/Debug/picture/bullet1.png");

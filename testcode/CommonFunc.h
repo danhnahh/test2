@@ -39,6 +39,8 @@ SDL_Texture* Type1 = NULL;
 SDL_Texture* Type2 = NULL;
 SDL_Texture* Type3 = NULL;
 
+SDL_Texture* ulti = NULL;
+
 SDL_RendererFlip fliptype = SDL_FLIP_NONE;
 
 SDL_RendererFlip fliptype1;
